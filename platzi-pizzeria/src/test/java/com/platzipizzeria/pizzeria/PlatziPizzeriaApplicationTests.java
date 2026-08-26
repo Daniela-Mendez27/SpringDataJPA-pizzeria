@@ -1,4 +1,4 @@
-package com.platzi.pizzeria;
+package com.platzipizzeria.pizzeria;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
