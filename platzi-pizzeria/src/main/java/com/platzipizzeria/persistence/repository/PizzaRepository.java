@@ -4,4 +4,5 @@ import com.platzipizzeria.persistence.entity.PizzaEntity;
 import org.springframework.data.repository.ListCrudRepository;
 
 public interface PizzaRepository extends ListCrudRepository<PizzaEntity, Integer> {
+    Integer idPizza(Integer idPizza);
 }
