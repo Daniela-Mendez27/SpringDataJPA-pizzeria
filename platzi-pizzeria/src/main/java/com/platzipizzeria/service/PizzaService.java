@@ -22,6 +22,14 @@ public class PizzaService {
         return this.pizzaRepository.findAll();
     }
 
+    public List<PizzaEntity> getAvaliable() {
+        return this.pizzaRepository.findAllByAvaliableTrueOrderByPrice();
+    }
+
+    public PizzaEntity getByName(String name) {
+        return this.pizzaRepository.findAllByAvaliableFalseOrderByPrice(name);
+    }
+
 
     //solo muestra un registro
     public PizzaEntity get(int idPizza) {
@@ -40,4 +48,6 @@ public class PizzaService {
     public boolean exists(int idPizza) {
         return this.pizzaRepository.existsById(idPizza);
     }
+
+
 }
