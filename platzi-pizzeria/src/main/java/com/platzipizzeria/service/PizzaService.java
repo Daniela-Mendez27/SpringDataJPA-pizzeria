@@ -30,6 +30,16 @@ public class PizzaService {
         return this.pizzaRepository.findAllByAvaliableFalseOrderByPrice(name);
     }
 
+    public List<PizzaEntity> getWith (String ingredient){
+        return this.pizzaRepository.findAllByAvailableTrueAndDescriptionContainingIgnoreCase(ingredient);
+
+    }
+    public List<PizzaEntity> getWithout (String ingredient){
+        this.pizzaRepository.countByVeganTrue();
+        return this.pizzaRepository.findAllByAvailableTrueAndDescriptionNotContainingIgnoreCase(ingredient);
+
+    }
+
 
     //solo muestra un registro
     public PizzaEntity get(int idPizza) {
