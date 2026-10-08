@@ -30,7 +30,7 @@ public class PizzaController {
 
     @GetMapping("/available")
     public ResponseEntity<List<PizzaEntity>> getAvailable() {
-        return ResponseEntity.ok(this.pizzaService.getAvaliable());
+        return ResponseEntity.ok(this.pizzaService.getAvailable());
     }
 
     @GetMapping("/name/{name}")
@@ -44,6 +44,10 @@ public class PizzaController {
     @GetMapping("/without/{ingredient}")
     public ResponseEntity<List<PizzaEntity>> getWithout(@PathVariable String ingredient) {
         return ResponseEntity.ok(this.pizzaService.getWithout(ingredient));
+    }
+    @GetMapping("/cheapest/{price}")
+    public ResponseEntity<List<PizzaEntity>> getCheapestPizzas(@PathVariable double price) {
+        return ResponseEntity.ok(this.pizzaService.getCheapest(price));
     }
 
 

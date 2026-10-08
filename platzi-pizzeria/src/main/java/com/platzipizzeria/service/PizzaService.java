@@ -3,8 +3,6 @@ package com.platzipizzeria.service;
 import com.platzipizzeria.persistence.entity.PizzaEntity;
 import com.platzipizzeria.persistence.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,28 +20,28 @@ public class PizzaService {
         return this.pizzaRepository.findAll();
     }
 
-    public List<PizzaEntity> getAvaliable() {
-        return this.pizzaRepository.findAllByAvaliableTrueOrderByPrice();
+    public List<PizzaEntity> getAvailable() {
+        return this.pizzaRepository.findAllByAvailableTrueOrderByPrice();
     }
 
     public PizzaEntity getByName(String name) {
-        return this.pizzaRepository.findAllByAvaliableFalseOrderByPrice(name);
+        return this.pizzaRepository.findFirstByAvailableTrueAndNameIgnoreCase(name)
+                .orElseThrow(() -> new RuntimeException("La pizza no existe"));
     }
 
-    public List<PizzaEntity> getWith (String ingredient){
+    public List<PizzaEntity> getWith(String ingredient) {
         return this.pizzaRepository.findAllByAvailableTrueAndDescriptionContainingIgnoreCase(ingredient);
-
     }
-    public List<PizzaEntity> getWithout (String ingredient){
-        this.pizzaRepository.countByVeganTrue();
+
+    public List<PizzaEntity> getWithout(String ingredient) {
         return this.pizzaRepository.findAllByAvailableTrueAndDescriptionNotContainingIgnoreCase(ingredient);
-
     }
 
+    public List<PizzaEntity> getCheapest(double price) {
+        return this.pizzaRepository.findTop3ByAvailableTueAndPriceLessThanOrderByPriceAcs(price);
+    }
 
-    //solo muestra un registro
     public PizzaEntity get(int idPizza) {
-
         return this.pizzaRepository.findById(idPizza).orElse(null);
     }
 
@@ -58,6 +56,4 @@ public class PizzaService {
     public boolean exists(int idPizza) {
         return this.pizzaRepository.existsById(idPizza);
     }
-
-
 }
